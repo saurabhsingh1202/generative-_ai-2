@@ -4,8 +4,8 @@
 #store into chroma 
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_openai import OpenAIEmbeddings 
-from langchain_community.vectorstores import Chroma 
+from langchain_community.embeddings import HuggingFaceEmbeddings
+from langchain_community.vectorstores import Chroma
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -20,7 +20,7 @@ splitter = RecursiveCharacterTextSplitter(
 
 chunks = splitter.split_documents(docs)
 
-embedding_model = OpenAIEmbeddings()
+embedding_model = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
 
 vectorstore = Chroma.from_documents(
     documents= chunks,

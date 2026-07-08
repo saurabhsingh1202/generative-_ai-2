@@ -5,7 +5,7 @@ import os
 
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_openai import OpenAIEmbeddings
+from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_community.vectorstores import Chroma
 from langchain_mistralai import ChatMistralAI
 from langchain_core.prompts import ChatPromptTemplate
@@ -43,7 +43,7 @@ if uploaded_file:
 
             chunks = splitter.split_documents(docs)
 
-            embeddings = OpenAIEmbeddings()
+            embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
 
             vectorstore = Chroma.from_documents(
                 documents=chunks,
@@ -59,7 +59,7 @@ if uploaded_file:
 
 if os.path.exists("chroma_db"):
 
-    embeddings = OpenAIEmbeddings()
+    embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
 
     vectorstore = Chroma(
         persist_directory="chroma_db",

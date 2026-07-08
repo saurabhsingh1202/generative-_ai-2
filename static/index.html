@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Document Summarizer</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Markdown Parser -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <!-- Custom Style -->
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <!-- Background Glows -->
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="bg-glow bg-glow-2"></div>
+    
+    <div class="app-container">
+        <header class="app-header">
+            <div class="logo-wrapper">
+                <div class="logo-icon"><i class="fa-solid fa-brain-circuit"></i></div>
+                <h1>Summ<span class="gradient-text">AI</span>ry</h1>
+            </div>
+            <p class="subtitle">Convert lengthy PDFs into structured, readable summaries in seconds.</p>
+        </header>
+
+        <main class="main-content">
+            <div class="glass-card upload-section" id="uploadCard">
+                <div class="card-header">
+                    <i class="fa-regular fa-file-pdf card-icon"></i>
+                    <h2>Upload Document</h2>
+                    <p>Select or drag and drop your PDF file below</p>
+                </div>
+
+                <div class="drop-zone" id="dropZone">
+                    <input type="file" id="fileInput" accept=".pdf" hidden>
+                    <div class="drop-zone-content">
+                        <div class="upload-pulse">
+                            <i class="fa-solid fa-cloud-arrow-up"></i>
+                        </div>
+                        <span class="drop-text-primary">Drag & Drop PDF here</span>
+                        <span class="drop-text-secondary">or click to browse local files</span>
+                        <span class="file-size-limit">Maximum size: 50MB</span>
+                    </div>
+                </div>
+
+                <div class="file-details-container" id="fileDetailsContainer" style="display: none;">
+                    <div class="file-info-card">
+                        <i class="fa-solid fa-file-pdf file-icon"></i>
+                        <div class="file-meta">
+                            <span class="file-name" id="fileName">document.pdf</span>
+                            <span class="file-size" id="fileSize">1.2 MB</span>
+                        </div>
+                        <button class="remove-btn" id="removeFileBtn" title="Remove File">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+                    
+                    <button class="btn btn-primary btn-glow" id="summarizeBtn">
+                        <span>Generate Summary</span>
+                        <i class="fa-solid fa-sparkles button-icon-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Loading View -->
+            <div class="glass-card status-section" id="loadingSection" style="display: none;">
+                <div class="loader-wrapper">
+                    <div class="quantum-loader">
+                        <div class="circle circle-1"></div>
+                        <div class="circle circle-2"></div>
+                        <div class="circle circle-3"></div>
+                    </div>
+                    <h3 id="loaderStatusText">Uploading document...</h3>
+                    <p id="loaderSubText">This might take a moment depending on the size of the PDF.</p>
+                </div>
+            </div>
+
+            <!-- Error Card -->
+            <div class="glass-card error-card" id="errorCard" style="display: none;">
+                <i class="fa-solid fa-circle-exclamation error-icon"></i>
+                <div class="error-details">
+                    <h3>Processing Failed</h3>
+                    <p id="errorMessage">An unexpected error occurred while summarizing the PDF.</p>
+                </div>
+                <button class="btn btn-secondary" id="errorBackBtn">Try Again</button>
+            </div>
+
+            <!-- Result View -->
+            <div class="glass-card result-section" id="resultSection" style="display: none;">
+                <div class="result-header">
+                    <div class="result-title-group">
+                        <span class="badge" id="resultPageCount">12 Pages</span>
+                        <h2 id="resultDocTitle">document.pdf</h2>
+                    </div>
+                    <div class="actions-group">
+                        <button class="btn-action" id="copyBtn" title="Copy Summary">
+                            <i class="fa-regular fa-copy"></i> Copy
+                        </button>
+                        <button class="btn-action" id="newDocBtn" title="Summarize Another PDF">
+                            <i class="fa-solid fa-rotate-left"></i> New PDF
+                        </button>
+                    </div>
+                </div>
+
+                <div class="summary-output" id="summaryOutput">
+                    <!-- Markdown rendered content goes here -->
+                </div>
+            </div>
+        </main>
+
+        <footer class="app-footer">
+            <p>Powered by <span>LangChain</span> & <span>Mistral AI</span></p>
+        </footer>
+    </div>
+    <!-- Load App JavaScript -->
+    <script src="/static/app.js"></script>
+</body>
+</html>

@@ -1,5 +1,5 @@
 from langchain_community.vectorstores import Chroma
-from langchain_openai import OpenAIEmbeddings
+from langchain_community.embeddings import HuggingFaceEmbeddings
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -12,7 +12,7 @@ docs = [
     Document(page_content="Neural networks are used in deep learning.", metadata={"source": "DL_book"}),
 ]
 
-embedding_model = OpenAIEmbeddings()
+embedding_model = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
 
 vectorstore = Chroma.from_documents(
     documents = docs,
